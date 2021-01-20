@@ -23,3 +23,11 @@
 发现代码BUG，但是目前没有成型代码，需要讨论时使用
 
 git
+
+```
+Git is a distributed version control system.
+```
+
+```
+Git is free software distributed under the GPL.
+```

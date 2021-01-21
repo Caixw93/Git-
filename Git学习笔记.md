@@ -1,3 +1,5 @@
+学习部分内容来自廖雪峰官方网站
+
 # GitHub
 
 1.Repository(仓库)
@@ -71,6 +73,90 @@ git checkout -- 文件名.后缀名     丢弃工作区的修改，这里分两�
 git reset HEAD 文件名.后缀名  将暂存区的文件回退到工作区
 
 rm 文件名.后缀名 删除工作区文件
+
+git rm 文件名.后缀名  删除工作区文件
+
+git ckeckout --文件名.后缀名 从版本库替换工作区版本
+
+
+
+# Git添加远程仓库
+
+1.查看本地C盘用户目录有没有.ssh文件夹，没有的话，创建SSH Key:
+
+```
+ssh-keygen -t rsa -C "Git用户邮箱"
+```
+
+然后一直回车，会出现.ssh文件夹里面有两个文件：
+
+id_rsa`和`id_rsa.pub
+
+`id_rsa`是私钥，不能泄露出去，`id_rsa.pub`是公钥，可以放心地告诉任何人。
+
+2.注册GitHub,找到SSHKeys页面
+
+点击“Add SSH Key”，填写Title,将.ssh文件夹中的`id_rsa.pub内容添加进Keywenben，最后“Add Key”
+
+3.GitHub创建仓库,在Repository name填写仓库名（例“learngit”），创建一个叫learngit的仓库
+
+4.关联一个远程仓库，本地仓库git运行：
+
+git remote add origin git@github.com:GitHub用户名/仓库名.git
+
+5.将本地仓库内容推送到GitHub远程仓库
+
+```
+git push -u origin master
+```
+
+
+
+把本地库的内容推送到远程，用`git push`命令，实际上是把当前分支`master`推送到远程。
+
+由于远程库是空的，我们第一次推送`master`分支时，加上了`-u`参数，Git不但会把本地的`master`分支内容推送的远程新的`master`分支，还会把本地的`master`分支和远程的`master`分支关联起来，在以后的推送或者拉取时就可以简化命令。
+
+6.推送成功后，可以立刻在GitHub页面中看到远程库的内容已经和本地一模一样
+
+从现在起，只要本地作了提交，就可以通过命令：
+
+```
+$ git push origin master
+```
+
+把本地`master`分支的最新修改推送至GitHub，现在，你就拥有了真正的分布式版本库！
+
+
+
+警告：
+
+### SSH警告
+
+当你第一次使用Git的`clone`或者`push`命令连接GitHub时，会得到一个警告：
+
+```
+The authenticity of host 'github.com (xx.xx.xx.xx)' can't be established.
+RSA key fingerprint is xx.xx.xx.xx.xx.
+Are you sure you want to continue connecting (yes/no)?
+```
+
+这是因为Git使用SSH连接，而SSH连接在第一次验证GitHub服务器的Key时，需要你确认GitHub的Key的指纹信息是否真的来自GitHub的服务器，输入`yes`回车即可。
+
+Git会输出一个警告，告诉你已经把GitHub的Key添加到本机的一个信任列表里了：
+
+```
+Warning: Permanently added 'github.com' (RSA) to the list of known hosts.
+```
+
+这个警告只会出现一次，后面的操作就不会有任何警告了。
+
+如果你实在担心有人冒充GitHub服务器，输入`yes`前可以对照[GitHub的RSA Key的指纹信息](https://help.github.com/articles/what-are-github-s-ssh-key-fingerprints/)是否与SSH连接给出的一致。
+
+
+
+
+
+
 
 
 

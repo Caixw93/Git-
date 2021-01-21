@@ -336,14 +336,18 @@ Git自动给dev分支做了一次提交，注意这次提交的commit是`1d4b803
 
 当你从远程仓库克隆时，实际上Git自动把本地的`master`分支和远程的`master`分支对应起来了，并且，远程仓库的默认名称是`origin`。
 
-要查看远程库的信息，用`git remote`：
+要查看远程库的信息
+
+`git remote`：
 
 ```
 $ git remote
 origin
 ```
 
-或者，用`git remote -v`显示更详细的信息：
+显示更详细的信息：
+
+`git remote -v`
 
 ```
 $ git remote -v
@@ -355,7 +359,7 @@ origin  git@github.com:michaelliao/learngit.git (push)
 
 ### 推送分支
 
-推送分支，就是把该分支上的所有本地提交推送到远程库。推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上：
+推送分支，就是把该分支上的所有本地提交推送到远程库。推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上： 
 
 ```
 $ git push origin master
@@ -523,3 +527,220 @@ To github.com:michaelliao/learngit.git
 
 
 
+# Rebase
+
+```
+git log --graph --pretty=oneline --abbrev-commit
+```
+
+查看分支情况
+
+git rebase
+
+原本分叉的提交现在变成一条直线了
+
+### 小结
+
+- rebase操作可以把本地未push的分叉提交历史整理成直线；
+- rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
+
+
+
+# Git标签
+
+## 创建标签
+
+在Git中打标签非常简单，首先，切换到需要打标签的分支上：
+
+```
+$ git branch
+* dev
+  master
+$ git checkout master
+Switched to branch 'master'
+```
+
+打标签：git tag 标签名
+
+```
+$ git tag v1.0
+```
+
+可以用命令`git tag`查看所有标签：
+
+```
+$ git tag
+v1.0
+```
+
+在历史提交的版本中找到一个版本打标签
+
+1.查看历史版本
+
+```
+ git log --pretty=oneline --abbrev-commit
+```
+
+2.在提交的一次版本中打标签：
+
+（
+
+例如：
+
+ 版本提交名字为：add merge
+
+它对应的commit id是`f52c633`
+
+）
+
+```
+git tag v0.9 f52c633
+```
+
+再用命令`git tag`查看标签：
+
+```
+$ git tag
+v0.9
+v1.0
+```
+
+
+
+3.查看标签信息
+
+git show <tagname>
+
+```
+$ git show v0.9
+```
+
+4.指定标签名和标签说明：
+
+创建带有说明的标签，用`-a`指定标签名，`-m`指定说明文字
+
+```
+$ git tag -a v0.1 -m "version 0.1 released" 1094adb
+```
+
+用命令`git show <tagname>`可以看到说明文字：
+
+```
+$ git show v0.1
+tag v0.1
+Tagger: Michael Liao <askxuefeng@gmail.com>
+Date:   Fri May 18 22:48:43 2018 +0800
+
+version 0.1 released
+
+commit 1094adb7b9b3807259d8cb349e7df1d4d6477073 (tag: v0.1)
+Author: Michael Liao <askxuefeng@gmail.com>
+Date:   Fri May 18 21:06:15 2018 +0800
+
+    append GPL
+
+diff --git a/readme.txt b/readme.txt
+...
+```
+
+### 小结
+
+- 命令`git tag <tagname>`用于新建一个标签，默认为`HEAD`，也可以指定一个commit id；
+- 命令`git tag -a <tagname> -m "blablabla..."`可以指定标签信息；
+- 命令`git tag`可以查看所有标签。
+
+## 操作标签
+
+1.删除标签
+
+git tag -d 标签名
+
+```
+$ git tag -d v0.1
+```
+
+2.推送某个标签到远程仓库
+
+git push origin <tagname>
+
+```
+$ git push origin v1.0
+```
+
+3.一次性推送全部的标签到远程仓库
+
+```
+$ git push origin --tags
+```
+
+4.删除已推送的标签
+
+·先删除本地：$ git tag -d v0.9，
+
+·然后删除远程仓库：$ git push origin :refs/tags/v0.9
+
+
+
+# Gitee的使用
+
+![Gitee钥匙的添加](C:\Users\Administrator\Desktop\杂项\Gitee钥匙的添加.jpg)
+
+1.将本地仓库与远程仓库关联
+
+git remote add origin git@gitee.com:gitee的用户名/仓库名.git
+
+git remote add origin  git@gitee.com:liaoxuefeng/learngit.git
+
+2.如果本地仓库已经关联其他的远程仓库：
+
+（1）查看关联的仓库信息
+
+```
+git remote -v
+```
+
+（2）删除已有的远程仓库
+
+```
+git remote rm origin
+```
+
+（3）关联新的Gitee仓库
+
+```
+git remote add origin git@gitee.com:liaoxuefeng/learngit.git
+```
+
+# 本地仓库关联多个远程仓库
+
+远程仓库都叫origin，如果要想关联多个远程仓库：
+
+1.git remote rm origin，删除本地仓库关联的远程仓库‘
+
+2.原先关联远程仓库时使用的是
+
+git remote add origin git@github.com:用户名/仓库名.git,
+
+现在先关联github，使用命令：
+
+git remote add github git@github.com:用户名/仓库名.git
+
+再关联gitee
+
+git remote add gitee git@gitee.com:用户名/仓库名.git
+
+3.查看是否关联
+
+git remote -v
+
+4.如果要推送到GitHub，使用命令：
+
+```
+git push github master
+```
+
+如果要推送到Gitee，使用命令：
+
+```
+git push gitee master
+```

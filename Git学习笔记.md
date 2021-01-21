@@ -28,7 +28,9 @@
 
 # Git原理图
 
-![Git原理图](C:\Users\Administrator\Desktop\杂项\Git原理图.jpg)
+
+
+![Git原理图](.\Git原理图.jpg)
 
 # Git命令
 
@@ -683,7 +685,7 @@ $ git push origin --tags
 
 # Gitee的使用
 
-![Gitee钥匙的添加](C:\Users\Administrator\Desktop\杂项\Gitee钥匙的添加.jpg)
+![Gitee钥匙的添加](.\Gitee钥匙的添加.jpg)
 
 1.将本地仓库与远程仓库关联
 

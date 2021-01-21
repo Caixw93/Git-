@@ -154,13 +154,42 @@ Warning: Permanently added 'github.com' (RSA) to the list of known hosts.
 
 
 
+# Git克隆仓库
+
+1.克隆仓库命令：git clone git@github.com:用户名/仓库名.git
+
+克隆出来的仓库有两个分支，一个是main,另外一个是master
+
+## 注意事项：
+
+因为本地仓库的分支是master,，所以需要切换分支
 
 
 
+# Git分支管理
 
+1.创建一个名为"dev"分支
 
+```
+git checkout -b dev
+```
 
+注意：-b参数表示创建并且切换，相当于
 
+```
+$ git branch dev
+$ git checkout dev
+```
 
+2.git checkout切换分支
 
+3.git  branch查看当前的分支
+
+4.git merge dev 在master分支中输入此命令，表示将dev分支合并到master分支中
+
+5.git branch -d dev 删除dev分支
+
+6.git switch -c dev 创建并切换到dev分支
+
+7.git switch master 直接切换到master分支
 
